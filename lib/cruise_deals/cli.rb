@@ -1,4 +1,3 @@
-# CLI Controller
 class CruiseDeals::CLI
 
   def call
@@ -8,31 +7,32 @@ class CruiseDeals::CLI
   end
 
   def list_cruises
-    puts "Cruise Deals:"
+    puts "Avaliable Cruises:"
     @cruises = CruiseDeals::Cruise.avaliable
+    @cruises.each.with_index(1) do |cruise, i|
+      puts "#{i}. #{cruise.name} - #{cruise.price} - #{cruise.nights}"
+    end
   end
 
   def menu
     input = nil
     while input != "exit"
-      puts "enter the number of the cruise or type exit or list to see deals again"
+      puts "Enter the number of the cruise you'd like more info on or type list to see the deals again or type exit:"
       input = gets.strip.downcase
-      case input
-      when "1"
-        puts "more info on cruise 1"
-      when "2"
-        puts "more info on cruise 2"
-      when "list"
+
+       #if input.to_i && input.to_i < @cruises.length
+       if input.to_i > 0
+        the_cruise = @cruises[input.to_i-1]
+        puts "#{the_cruise.name} - #{the_cruise.price} - #{the_cruise.nights}"
+      elsif input == "list"
         list_cruises
       else
-        puts "Not sure what you want, type list or exit"
+        puts "Not sure what you want, type list or exit."
       end
     end
   end
 
   def goodbye
-    puts "see you later"
+    puts "See you tomorrow for more deals!!!"
   end
-
-
 end

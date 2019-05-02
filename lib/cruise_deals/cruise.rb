@@ -2,10 +2,11 @@ class CruiseDeals::Cruise
   attr_accessor :name, :price, :nights, :date, :from, :url
 
   def self.avaliable
-    puts <<-DOC.gsub /^\s*/, ''
-      1. $519 - 7 nights - Western Mediterranean Cruise Deal
-      2. $994 - 16 nights - Alaska Cruise Deal
-    DOC
+    #puts <<-DOC.gsub /^\s*/, ''
+    #  1. $519 - 7 nights - Western Mediterranean Cruise Deal
+    #  2. $994 - 16 nights - Alaska Cruise Deal
+    #DOC
+
     cruise_1 = self.new
     cruise_1.name = "Western Mediterranean Cruise Deal"
     cruise_1.price = "519"
