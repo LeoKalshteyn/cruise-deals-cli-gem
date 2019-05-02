@@ -10,7 +10,7 @@ class CruiseDeals::CLI
     puts "Avaliable Cruises:"
     @cruises = CruiseDeals::Cruise.avaliable
     @cruises.each.with_index(1) do |cruise, i|
-      puts "#{i}. #{cruise.name} - #{cruise.price} - #{cruise.nights}"
+      puts "#{i}. #{cruise.name}"
     end
   end
 

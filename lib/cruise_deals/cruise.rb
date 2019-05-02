@@ -1,5 +1,5 @@
 class CruiseDeals::Cruise
-  attr_accessor :name, :price, :nights, :date, :from, :url
+  attr_accessor :name, :price, :nights, :date, :from, :ship_name, :room_category
 
   def self.avaliable
     # scrape CruiseCritic and return cruise deals
@@ -7,23 +7,28 @@ class CruiseDeals::Cruise
   end
 
   def self.scrape_cruises
-    cruise_1 = self.new
-    cruise_1.name = "Western Mediterranean Cruise Deal"
-    cruise_1.price = "519"
-    cruise_1.nights = "7"
-    cruise_1.date = "May 05, 2019"
-    cruise_1.from = "Genoa"
-    cruise_1.url = "https://www.cruisecritic.com/bargains/"
+    # Go to CruiseCritic, get the details and print
+    cruises = []
+    cruises << self.scrape_cruisecritic
 
-    cruise_2 = self.new
-    cruise_2.name = "Alaska Cruise Deal"
-    cruise_2.price = "$994"
-    cruise_2.nights = "16"
-    cruise_2.date = "May 25, 2019"
-    cruise_2.from = "Anchorage"
-    cruise_2.url = "https://www.cruisecritic.com/bargains/"
-
-    [cruise_1, cruise_2]
+    cruises
   end
+
+  def self.scrape_cruisecritic
+    doc = Nokogiri::HTML(open("https://www.cruisecritic.com/bargains/"))
+    #binding.binding.pry
+    cruise = self.new
+
+    cruise.name = doc.search("pdmli__title__destination").text.strip
+    cruise.nights = doc.search("pdmli__title__nights").text.strip
+    cruise.ship_name = doc.search("ship__name").text.strip
+    cruise.room_category = doc.search("ship__cabin").text.strip
+    cruise.price = doc.search("pdmli__info__pricing__price").text.strip
+    cruise.date = doc.search("pdmli__departure-date").text.strip
+    cruise.from = doc.search("pdmli__departure-port").text.strip
+
+    cruise
+  end
+
 
 end
