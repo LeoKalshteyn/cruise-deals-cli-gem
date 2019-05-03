@@ -19,13 +19,13 @@ class CruiseDeals::Cruise
     #binding.binding.pry
     cruise = self.new
 
-    cruise.name = doc.search("pdmli__title__destination").text.strip
-    cruise.nights = doc.search("pdmli__title__nights").text.strip
-    cruise.ship_name = doc.search("ship__name").text.strip
-    cruise.room_category = doc.search("ship__cabin").text.strip
-    cruise.price = doc.search("pdmli__info__pricing__price").text.strip
-    cruise.date = doc.search("pdmli__departure-date").text.strip
-    cruise.from = doc.search("pdmli__departure-port").text.strip
+    cruise.name = doc.xpath("//div[@class='pdmli__title__destination']").text.strip
+    cruise.nights = doc.xpath("//div[@class='pdmli__title__nights']").text.strip
+    cruise.ship_name = doc.xpath("//div[@class='ship__name']").text.strip
+    cruise.room_category = doc.xpath("//div[@class='ship__cabin']").text.strip
+    cruise.price = doc.xpath("//div[@class='pdmli__info__pricing__price']").text.strip
+    cruise.date = doc.xpath("//div[@class='pdmli__departure']").text.strip
+    cruise.from = doc.xpath("//div[@class='pdmli__departure']").text.strip
 
     cruise
   end
