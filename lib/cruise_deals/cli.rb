@@ -1,4 +1,5 @@
 class CruiseDeals::CLI
+  include CommandLineReporter
 
   def call
     list_cruises
@@ -7,7 +8,9 @@ class CruiseDeals::CLI
   end
 
   def list_cruises
+    # Calls the scrape method and iterates through the cruise array, displaying all the name
     puts "Avaliable Cruises:"
+    CruiseDeals::Cruise.scrape_cruisecritic
     @cruises = CruiseDeals::Cruise.avaliable
     @cruises.each.with_index(1) do |cruise, i|
       puts "#{i}. #{cruise.name}"
@@ -21,9 +24,19 @@ class CruiseDeals::CLI
       input = gets.strip.downcase
 
        #if input.to_i && input.to_i < @cruises.length
-       if input.to_i > 0
+       if input.to_i > 0 && input.to_i <= 20
         the_cruise = @cruises[input.to_i-1]
-        puts "#{the_cruise.name} - #{the_cruise.price} - #{the_cruise.nights}"
+          puts ""
+          #sprintf("%10d", "#{the_cruise.name}")
+          puts "#{the_cruise.name}"
+          puts ""
+          puts "Price:           #{the_cruise.price}"
+          puts "Nights:          #{the_cruise.nights}"
+          puts "Date:            #{the_cruise.date}"
+          puts "From:            #{the_cruise.from}"
+          puts "Ship Name:       #{the_cruise.ship_name}"
+          puts "Room Category:   #{the_cruise.room_category}"
+          puts ""
       elsif input == "list"
         list_cruises
       else
