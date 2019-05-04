@@ -1,5 +1,6 @@
+require 'colorize'
+
 class CruiseDeals::CLI
-  include CommandLineReporter
 
   def call
     list_cruises
@@ -27,14 +28,15 @@ class CruiseDeals::CLI
        if input.to_i > 0 && input.to_i <= 20
         the_cruise = @cruises[input.to_i-1]
           #sprintf("%10d", "#{the_cruise.name}")
-          puts "#{the_cruise.name}"
+          puts "#{the_cruise.name}".colorize(:yellow)
           puts ""
           puts "Price:           #{the_cruise.price}"
-          puts "Nights:          #{the_cruise.nights}"
+          puts "Nights:          #{the_cruise.nights}\n\n"
           puts "Date:            #{the_cruise.date}"
           puts "From:            #{the_cruise.from}"
           puts "Ship Name:       #{the_cruise.ship_name}"
           puts "Room Category:   #{the_cruise.room_category}"
+          puts "Itinerary:\n    #{the_cruise.itinerary}"
           puts ""
       elsif input == "list"
         list_cruises
