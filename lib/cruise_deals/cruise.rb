@@ -25,13 +25,13 @@ class CruiseDeals::Cruise
     doc.css(".pdmli__info").each_with_index do |element, i|
       cruise = {}
 
-      cruise[:name] = element.xpath("//div[@class='pdmli__title__destination']")[i].text
-      cruise[:nights] = element.xpath("//div[@class='pdmli__title__nights']")[i].text
-      cruise[:ship_name] = element.xpath("//div[@class='ship__name']")[i].text
-      cruise[:room_category] = element.xpath("//div[@class='ship__cabin']")[i].text
-      cruise[:price] = element.xpath("//div[@class='pdmli__info__pricing__price']")[i].text
-      cruise[:date] = element.xpath("//div[@class='pdmli__departure-date']")[i].text
-      cruise[:from] = element.xpath("//div[@class='pdmli__departure']")[i]
+      cruise[:name] = element.xpath("//div[@class='pdmli__title__destination']")[i].text.lstrip
+      cruise[:nights] = element.xpath("//div[@class='pdmli__title__nights']")[i].text.lstrip
+      cruise[:ship_name] = element.xpath("//div[@class='ship__name']")[i].text.lstrip
+      cruise[:room_category] = element.xpath("//div[@class='ship__cabin']")[i].text.lstrip
+      cruise[:price] = element.xpath("//div[@class='pdmli__info__pricing__price']")[i].text.gsub('*', '').lstrip
+      cruise[:date] = element.xpath("//div[@class='pdmli__departure-date']")[i].text.lstrip
+      cruise[:from] = element.xpath("//div[@class='pdmli__departure-port']")[i].text.gsub('From', '').lstrip
 
       CruiseDeals::Cruise.new(cruise)
     end

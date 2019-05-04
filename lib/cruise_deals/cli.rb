@@ -26,7 +26,6 @@ class CruiseDeals::CLI
        #if input.to_i && input.to_i < @cruises.length
        if input.to_i > 0 && input.to_i <= 20
         the_cruise = @cruises[input.to_i-1]
-          puts ""
           #sprintf("%10d", "#{the_cruise.name}")
           puts "#{the_cruise.name}"
           puts ""
@@ -39,7 +38,7 @@ class CruiseDeals::CLI
           puts ""
       elsif input == "list"
         list_cruises
-      else
+      elsif input != "exit"
         puts "Not sure what you want, type list or exit."
       end
     end
