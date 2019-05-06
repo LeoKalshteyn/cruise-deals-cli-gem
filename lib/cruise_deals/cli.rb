@@ -9,7 +9,7 @@ class CruiseDeals::CLI
   end
 
   def list_cruises
-    # Calls the scrape method and iterates through the cruise array, displaying all the name
+    # Calls the scrape method and iterates through the cruise array, displaying all the cruise deals
     puts "Avaliable Cruises:"
     CruiseDeals::Cruise.scrape_cruisecritic
     @cruises = CruiseDeals::Cruise.avaliable
@@ -19,17 +19,15 @@ class CruiseDeals::CLI
   end
 
   def menu
+    #Method that displays the site's details and prompts the user depending on the input.
     input = nil
     while input != "exit"
       puts "Enter the number of the cruise you'd like more info on or type list to see the deals again or type exit:"
       input = gets.strip.downcase
-
-       #if input.to_i && input.to_i < @cruises.length
+      #Less/equal to 20 because there are only 20 cruises displayed at one time.
        if input.to_i > 0 && input.to_i <= 20
         the_cruise = @cruises[input.to_i-1]
-          #sprintf("%10d", "#{the_cruise.name}")
           puts "#{the_cruise.name}".colorize(:yellow)
-          puts ""
           puts "Price:           #{the_cruise.price}"
           puts "Nights:          #{the_cruise.nights}\n\n"
           puts "Date:            #{the_cruise.date}"
@@ -37,7 +35,6 @@ class CruiseDeals::CLI
           puts "Ship Name:       #{the_cruise.ship_name}"
           puts "Room Category:   #{the_cruise.room_category}"
           puts "Itinerary:\n    #{the_cruise.itinerary}"
-          puts ""
       elsif input == "list"
         list_cruises
       elsif input != "exit"

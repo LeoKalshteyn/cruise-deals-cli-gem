@@ -3,6 +3,7 @@ class CruiseDeals::Cruise
 
   @@all = []
 
+  #Creates objects for scraper
   def initialize(attr_hash)
     @name = attr_hash[:name]
     @nights = attr_hash[:nights]
@@ -20,12 +21,15 @@ class CruiseDeals::Cruise
   end
 
   def self.scrape_cruisecritic
+    #The scraper itself
     @@all = []
     doc = Nokogiri::HTML(open("https://www.cruisecritic.com/bargains/"))
-    #binding.binding.pry
+
+    #Iterates through the site's div class pdmli__info
     doc.css(".pdmli__info").each_with_index do |element, i|
       cruise = {}
 
+      # uses xpath to extract the site's info
       cruise[:name] = element.xpath("//div[@class='pdmli__title__destination']")[i].text.lstrip
       cruise[:nights] = element.xpath("//div[@class='pdmli__title__nights']")[i].text.lstrip
       cruise[:ship_name] = element.xpath("//div[@class='ship__name']")[i].text.lstrip
@@ -34,6 +38,8 @@ class CruiseDeals::Cruise
       cruise[:date] = element.xpath("//div[@class='pdmli__departure-date']")[i].text.lstrip
       cruise[:from] = element.xpath("//div[@class='pdmli__departure-port']")[i].text.gsub('From', '').lstrip
       cruise[:itinerary] = element.xpath("//div[@class='summary-list-lite']")[i].text.gsub(/[\n]+/, "\n").lstrip
+
+      #creates new class
       CruiseDeals::Cruise.new(cruise)
     end
   end
