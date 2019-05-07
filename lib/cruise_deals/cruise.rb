@@ -20,10 +20,10 @@ class CruiseDeals::Cruise
     @@all
   end
 
-  def self.scrape_cruisecritic
+  def self.scrape_cruisecritic(url)
     #The scraper itself
     @@all = []
-    doc = Nokogiri::HTML(open("https://www.cruisecritic.com/bargains/"))
+    doc = Nokogiri::HTML(open(url))
 
     #Iterates through the site's div class pdmli__info
     doc.css(".pdmli__info").each_with_index do |element, i|
