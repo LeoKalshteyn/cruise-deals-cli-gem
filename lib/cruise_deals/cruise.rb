@@ -39,7 +39,7 @@ class CruiseDeals::Cruise
       cruise[:from] = element.xpath("//div[@class='pdmli__departure-port']")[i].text.gsub('From', '').lstrip
       cruise[:itinerary] = element.xpath("//div[@class='summary-list-lite']")[i].text.gsub(/[\n]+/, "\n").lstrip
 
-      #creates new class
+      # creates new object in class
       CruiseDeals::Cruise.new(cruise)
     end
   end
