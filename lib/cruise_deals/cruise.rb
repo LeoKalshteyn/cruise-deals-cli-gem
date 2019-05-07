@@ -1,5 +1,5 @@
 class CruiseDeals::Cruise
-  attr_accessor :name, :price, :nights, :date, :from, :ship_name, :room_category, :itinerary
+  attr_accessor :name, :price, :nights, :date, :from, :ship_name, :room_category, :itinerary, :company_name
 
   @@all = []
 
@@ -13,6 +13,7 @@ class CruiseDeals::Cruise
     @ship_name = attr_hash[:ship_name]
     @room_category = attr_hash[:room_category]
     @itinerary = attr_hash[:itinerary]
+    @company_name = attr_hash[:company_name]
     @@all << self
   end
 
@@ -38,6 +39,7 @@ class CruiseDeals::Cruise
       cruise[:date] = element.xpath("//div[@class='pdmli__departure-date']")[i].text.lstrip
       cruise[:from] = element.xpath("//div[@class='pdmli__departure-port']")[i].text.gsub('From', '').lstrip
       cruise[:itinerary] = element.xpath("//div[@class='summary-list-lite']")[i].text.gsub(/[\n]+/, "\n").lstrip
+      cruise[:company_name] = element.xpath("//h2[@class='ship-spotlight__title']")[i].text.gsub(/.* - /, "").lstrip
 
       # creates new object in class
       CruiseDeals::Cruise.new(cruise)

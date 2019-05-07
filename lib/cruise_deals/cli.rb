@@ -57,6 +57,7 @@ class CruiseDeals::CLI
         puts "From:            #{the_cruise.from}"
         puts "Ship Name:       #{the_cruise.ship_name}"
         puts "Room Category:   #{the_cruise.room_category}"
+        puts "Company Name:    #{the_cruise.company_name}"
         puts "Itinerary:\n    #{the_cruise.itinerary}"
         menu
     elsif input == "list"
