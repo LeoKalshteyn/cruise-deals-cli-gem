@@ -50,7 +50,7 @@ class CruiseDeals::CLI
     #Less/equal to 20 because there are only 20 cruises displayed at one time.
      if input.to_i > 0 && input.to_i <= 20
       the_cruise = @cruises[input.to_i-1]
-        puts "#{the_cruise.name}".colorize(:yellow)
+        puts "\n#{the_cruise.name}".colorize(:yellow)
         puts "Price:           #{the_cruise.price}"
         puts "Nights:          #{the_cruise.nights}\n\n"
         puts "Date:            #{the_cruise.date}"
