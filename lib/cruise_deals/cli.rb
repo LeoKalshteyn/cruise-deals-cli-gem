@@ -3,16 +3,20 @@ require 'colorize'
 class CruiseDeals::CLI
 
   def call
+    puts "Loading Cruise Deals..."
+    CruiseDeals::Scraper.scrape_cruisecritic
     menu
   end
 
-  def list_cruises(url)
+  def list_cruises(input)
     # Calls the scrape method and iterates through the cruise array, displaying all the cruise deals
     puts "Avaliable Cruises:"
-    CruiseDeals::Cruise.scrape_cruisecritic(url)
-    @cruises = CruiseDeals::Cruise.avaliable
+    @cruises = CruiseDeals::Cruise.find_by_cruise_type(input)
+          #  binding.pry
     @cruises.each.with_index(1) do |cruise, i|
-      puts "#{i}. #{cruise.name}"
+        #  binding.pry
+      #if cruise.cruise_type == input
+        puts "#{i}. #{cruise.name}"
     end
   end
 
@@ -23,16 +27,13 @@ class CruiseDeals::CLI
     puts "Type in the number of the deal type, (1) All Cruises, (2) Cheapest Cruises, or (3) Last Minute Deals. To exit enter (exit)"
     input = gets.strip
     if input == "1"
-      url = "https://www.cruisecritic.com/bargains/"
-      list_cruises(url)
+      list_cruises(input)
       choose_cruise
     elsif input == "2"
-      url = "https://www.cruisecritic.com/bargains/cheap-cruises/"
-      list_cruises(url)
+      list_cruises(input)
       choose_cruise
     elsif input == "3"
-      url = "https://www.cruisecritic.com/bargains/lastminute.cfm"
-      list_cruises(url)
+      list_cruises(input)
       choose_cruise
     elsif input == "exit"
       goodbye
