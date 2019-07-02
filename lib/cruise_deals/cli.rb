@@ -3,25 +3,24 @@ require 'colorize'
 class CruiseDeals::CLI
 
   def call
+    #instance method that loads up the scraper and displays menu
     puts "Loading Cruise Deals..."
     CruiseDeals::Scraper.scrape_cruisecritic
     menu
   end
 
   def list_cruises(input)
-    # Calls the scrape method and iterates through the cruise array, displaying all the cruise deals
+    #instance method which lists the cruises
     puts "Avaliable Cruises:"
+    #instance cruises variable is set to the find method in Cruise class
     @cruises = CruiseDeals::Cruise.find_by_cruise_type(input)
-          #  binding.pry
     @cruises.each.with_index(1) do |cruise, i|
-        #  binding.pry
-      #if cruise.cruise_type == input
         puts "#{i}. #{cruise.name}"
     end
   end
 
   def menu
-    #Method that displays the site's details and prompts the user depending on the input.
+    #Instance method that displays the site's details and prompts the user depending on the input.
     input = nil
     puts "Which type of deal would you like more info on?"
     puts "Type in the number of the deal type, (1) All Cruises, (2) Cheapest Cruises, or (3) Last Minute Deals. To exit enter (exit)"
@@ -45,6 +44,7 @@ class CruiseDeals::CLI
   end
 
   def choose_cruise
+    #instance method which contains the structre of the info for a cruise
     input = nil
     puts "Enter the number of the cruise you'd like more info on or enter list to choose a new deal type."
     input = gets.strip.downcase

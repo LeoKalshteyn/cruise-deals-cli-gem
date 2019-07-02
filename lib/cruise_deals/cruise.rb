@@ -1,6 +1,8 @@
 class CruiseDeals::Cruise
+  #method that defines getter and setter methods for instance variables
   attr_accessor :name, :price, :nights, :date, :from, :cruise_type, :ship_name, :room_category, :itinerary, :company_name
 
+  #class variable array
   @@all = []
 
   #Creates objects for scraper
@@ -18,17 +20,17 @@ class CruiseDeals::Cruise
     @@all << self
   end
 
+  #class reader method
   def self.avaliable
     @@all
   end
 
+  #class method that iterates through @@all for all cruises where the cruise type equals input
   def self.find_by_cruise_type(input)
    avaliable.select do |cruise|
       cruise.cruise_type == input
     end
   end
-
-
 
 
 end

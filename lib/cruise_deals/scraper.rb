@@ -6,7 +6,7 @@ class CruiseDeals::Scraper
     url_array.each.with_index(1) do |url, j|
       doc = Nokogiri::HTML(open(url))
 
-      #Iterates through the site's div class pdmli__info
+      #Iterates through the site's div class pdmli_info
       doc.css(".pdmli__info").each_with_index do |element, i|
         cruise = {}
 
@@ -22,7 +22,7 @@ class CruiseDeals::Scraper
         cruise[:company_name] = element.xpath("//h2[@class='ship-spotlight__title']")[i].text.gsub(/.* - /, "").lstrip
         cruise[:cruise_type] = j.to_s
 
-        # creates new object in class
+        # creates new cruise object in class
         CruiseDeals::Cruise.new(cruise)
       end
     end
