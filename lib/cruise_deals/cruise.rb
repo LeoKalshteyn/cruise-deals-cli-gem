@@ -20,7 +20,6 @@ class CruiseDeals::Cruise
     @@all << self
   end
 
-  #class reader method
   def self.avaliable
     @@all
   end
