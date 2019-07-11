@@ -1,5 +1,5 @@
 class CruiseDeals::Cruise
-  #method that defines getter and setter methods for instance variables
+  #method that defines getter and setter methods for the instance variables
   attr_accessor :name, :price, :nights, :date, :from, :cruise_type, :ship_name, :room_category, :itinerary, :company_name
 
   #class variable array
@@ -17,7 +17,7 @@ class CruiseDeals::Cruise
     @itinerary = attr_hash[:itinerary]
     @company_name = attr_hash[:company_name]
     @cruise_type = attr_hash[:cruise_type]
-    @@all << self
+    @@all << self #fills the array with objects and returns array
   end
 
   def self.avaliable
@@ -29,6 +29,13 @@ class CruiseDeals::Cruise
    avaliable.select do |cruise|
       cruise.cruise_type == input
     end
+  end
+
+  def self.search_cruises(input_query)
+    avaliable.select do |cruise|
+      cruise.name.include? input_query
+    end
+
   end
 
 

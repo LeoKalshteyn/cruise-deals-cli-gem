@@ -2,4 +2,5 @@
 
 require './lib/cruise_deals'
 
+#creates new CLI object when program runs
 CruiseDeals::CLI.new.call
